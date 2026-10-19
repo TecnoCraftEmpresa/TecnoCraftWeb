@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="[Descripción de tu web]">
+  <meta name="theme-color" content="#0b0e14">
+  <title>TecnoCraft</title>
+
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --surface: #131925;
+      --text: #f3f5fa;
+      --muted: #9ba7bb;
+      --accent: #9aa9ff;
+      --accent2: #75ead5;
+      --border: rgba(255,255,255,.10);
+      --radius: 20px;
+      --width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 0%, #20254655, transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--width), calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* NAVEGACIÓN */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #0b0e14dd;
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .menu-button {
+      display: none;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    /* BOTONES */
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 19px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 750;
+      transition: transform .2s, opacity .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      color: #0b0e14;
+      background: linear-gradient(110deg, var(--accent), var(--accent2));
+    }
+
+    .secondary {
+      border: 1px solid var(--border);
+      background: #ffffff06;
+    }
+
+    /* PORTADA */
+
+    .hero {
+      padding: 115px 0 100px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .eyebrow {
+      color: var(--accent2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -4px;
+    }
+
+    .gradient {
+      color: var(--accent);
+      background: linear-gradient(100deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 550px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-visual {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 30%, #9aa9ff20, transparent 60%),
+        var(--surface);
+      box-shadow: 0 25px 80px #0003;
+    }
+
+    .placeholder {
+      width: 100%;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 25px;
+      border: 1px dashed #65718b;
+      border-radius: 16px;
+      color: var(--muted);
+    }
+
+    /* SECCIONES */
+
+    section:not(.hero) {
+      padding: 75px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 35px;
+    }
+
+    h2 {
+      margin: 12px 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -2px;
+    }
+
+    .section-heading p {
+      max-width: 620px;
+      color: var(--muted);
+    }
+
+    /* TARJETAS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #ffffff08, #ffffff02);
+      transition: transform .2s, border-color .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #9aa9ff77;
+    }
+
+    .card-icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border-radius: 14px;
+      background: #9aa9ff14;
+      color: var(--accent2);
+      font-size: 22px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 19px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* PROYECTOS */
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    /* TEMPORAL PORQUE SOLO TENEMOS 1 */
+    .projects.single {
+    grid-template-columns: minmax(0, 600px);
+    justify-content: center;
+    }
+
+    .project {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .project-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: var(--muted);
+      background:
+        linear-gradient(135deg, #9aa9ff18, #75ead510);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      color: var(--accent2);
+      font-size: 11px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .project-content p {
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .text-link {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    /* SOBRE MÍ */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 45px;
+      align-items: start;
+    }
+
+    .about-text {
+      color: var(--muted);
+      white-space: pre-line;
+    }
+
+    .info-panel {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .info-row:last-child {
+      border-bottom: 0;
+    }
+
+    .info-row span:last-child {
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* CONTACTO */
+
+    .contact-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      padding: 45px;
+      border: 1px solid #9aa9ff44;
+      border-radius: 25px;
+      background: linear-gradient(120deg, #9aa9ff12, #75ead508);
+    }
+
+    .contact-box p {
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* MÓVILES */
+
+    @media (max-width: 800px) {
+      .hero {
+        padding: 75px 0;
+      }
+
+      .hero-grid,
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-box {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .cards,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-box {
+        padding: 25px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABECERA -->
+  <header>
+    <nav class="container">
+      <a class="logo" href="#inicio">[<span>TecnoCraft</span>]</a>
+
+      <button class="menu-button" id="menuButton"
+        aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- PORTADA -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+
+        <div>
+          <span class="eyebrow">[Por un futuro mejor para las futuras generaciones]</span>
+
+          <h1>
+            [TecnoCraft]<br>
+          </h1>
+
+          <p>
+            [Somos TecnoCraft, aquí por un futuro mejor para tus hijos.]
+          </p>
+
+          <div class="hero-actions">
+            <a class="button primary" href="#proyectos">
+              Explorar proyectos ↗
+            </a>
+            <a class="button secondary" href="#sobre-mi">
+              Conocer más
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+        <img src="Prototipo_3.png" width="520" hegiht="520">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECCIONES PRINCIPALES -->
+    <section id="secciones">
+      <div class="container">
+
+        <div class="section-heading">
+          <span class="eyebrow">Contenido</span>
+          <h2>[¿Qué encontrarás aquí?]</h2>
+          <p>[Propuestas para tanto padres como hijos.]</p>
+        </div>
+
+        <div class="cards">
+
+          <article class="card">
+            <div class="card-icon">😥</div>
+            <h3>[Aliviar sus preocupaciones]</h3>
+            <p>[Proporcionaremos las herramientas correctas para que usted como padre preocupado, no tenga tanta ansiedad para el futuro de su hijo.]</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">📖</div>
+            <h3>[Una mejor manera de entretenimiento]</h3>
+            <p>[Con nuestros servicios hacemos del aprender algo divertido.]</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">💚</div>
+            <h3>["Verde" y facil de producir]</h3>
+            <p>[No solo nos preocupamos por el futuro de su hijo, sino por el futuro de todos, este incluyendo el medio ambiente.]</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <div class="container">
+
+        <div class="section-heading">
+          <span class="eyebrow">Portfolio</span>
+          <h2>Proyecto destacado</h2>
+        </div>
+
+        <div class="projects single"> <!-- CAMBIAR CUANDO TENGAMOS MAS PROYECTOS -->
+
+          <article class="project">
+            <div class="project-image">
+              <img src="tablet.jpg">
+            </div>
+
+            <div class="project-content">
+              <span class="tag">[Producto]</span>
+              <h3>[TecnoTablet]</h3>
+              <p>[Una tablet con solo las funciones importantes para el dia a dia y juegos de desarrollo para evitar el enganche.]</p>
+              <!--<a class="text-link" href="[URL del proyecto]"> -- CAMBIAR CUANDO TENGAMOS URL --
+                Ver proyecto ↗<-->
+              </a>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi">
+      <div class="container about-grid">
+
+        <div>
+          <span class="eyebrow">Acerca de</span>
+          <h2>[Sobre nosotros.]</h2>
+
+          <p class="about-text">[Somos una empresa con una preocupacion muy grande por las nuevas generaciones del siglo XXI y futuros siglos.]</p>
+        </div>
+
+        <aside class="info-panel">
+          <h3>[Información adicional]</h3>
+
+          <div class="info-row">
+            <span>Especialidad</span>
+            <span>[Desarrollo de software y hardware para fomentar la antencion y desarrollo de un niño]</span>
+          </div>
+
+          <div class="info-row">
+            <span>Experiencia</span>
+            <span>[Experiencia con diferentes marcas y colaboraciones en apps de software, hardware y desarrollo de apps]</span>
+          </div>
+
+          <div class="info-row">
+            <span>Herramientas</span>
+            <span>[Python, C++, ingenieria de componentes, html-css-javascript]</span>
+          </div>
+
+          <div class="info-row">
+            <span>Estado</span>
+            <span>[En marcha con nuestro primer proyecto y a la espera de nuevas ideas y/o contratacion por parte de algunas empresas]</span>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <div class="container">
+        <div class="contact-box">
+
+          <div>
+            <span class="eyebrow">Contacto</span>
+            <h2>[Hablemos de tu próxima idea.]</h2>
+            <p>[Para contactar con nosotros sobre cualquier cosa, haga click en el boton a la derecha.]</p>
+          </div>
+
+          <!-- Sustituye el correo por el tuyo -->
+          <a class="button primary"
+             href="mailto:tecnocrafempire@gmail.com">
+            Enviar correo ↗
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer>
+    <div class="container footer-content">
+      <span>© <span id="year"></span> [TecnoCraft]</span>
+
+      <span>
+        <a href="https://github.com/TecnoCraftEmpresa">GitHub</a> ·
+        <!-- <a href="[URL de otra red]">Red social</a> -- PONER CUANDO TENGAMOS RED SOCIAL -->
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Año actualizado automáticamente.
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Menú adaptable a dispositivos móviles.
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    menuButton.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute(
+        "aria-label",
+        open ? "Cerrar menú" : "Abrir menú"
+      );
+      menuButton.textContent = open ? "×" : "☰";
+    });
+
+    // Cierra el menú al seleccionar una sección.
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Abrir menú");
+        menuButton.textContent = "☰";
+      });
+    });
+  </script>
+
+</body>
+</html>
